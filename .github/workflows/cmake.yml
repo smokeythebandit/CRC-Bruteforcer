@@ -42,6 +42,6 @@ jobs:
     - name: Archive executable
       uses: actions/upload-artifact@v3
       with:
-        name: CRC-Bruteforcer
+        name: CRC-Bruteforcer-${{ matrix.os }}
         path: build/**/CRC-Bruteforcer*
 
