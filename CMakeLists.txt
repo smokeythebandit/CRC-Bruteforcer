@@ -12,14 +12,14 @@ FetchContent_MakeAvailable(argparse)
 
 FetchContent_Declare(
     CRCpp
-    GIT_REPOSITORY git@github.com:d-bahr/CRCpp.git
+    GIT_REPOSITORY https://github.com/d-bahr/CRCpp.git
     GIT_TAG        release-1.2.0.0
 )
 FetchContent_MakeAvailable(CRCpp)
 
 FetchContent_Declare(
     spdlog
-    GIT_REPOSITORY git@github.com:gabime/spdlog.git
+    GIT_REPOSITORY https://github.com/gabime/spdlog.git
     GIT_TAG        v1.11.0
 )
 FetchContent_MakeAvailable(spdlog)
