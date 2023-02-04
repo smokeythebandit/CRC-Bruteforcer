@@ -1,4 +1,4 @@
-# crc-bruteforcer![cmake workflow](https://github.com/smokeythebandit/CRC-Bruteforcer/actions/workflows/cmake.yml/badge.svg)
+# crc-bruteforcer  ![cmake workflow](https://github.com/smokeythebandit/CRC-Bruteforcer/actions/workflows/cmake.yml/badge.svg)
 
 CRC Bruteforcer is a C++ project that can be used to determine the polynomial used in a cyclic redundancy check (CRC) algorithm by brute forcing all possible polynomials and checking if they produce the desired checksum.
 
