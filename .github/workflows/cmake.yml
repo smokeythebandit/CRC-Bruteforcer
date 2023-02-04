@@ -40,8 +40,8 @@ jobs:
       run: ctest -C ${{env.BUILD_TYPE}}
 
     - name: Archive executable
-        uses: actions/upload-artifact@v3
-        with:
-          name: CRC-Bruteforcer
-          path: build/**/CRC-Bruteforcer*
+      uses: actions/upload-artifact@v3
+      with:
+        name: CRC-Bruteforcer
+        path: build/**/CRC-Bruteforcer*
 
