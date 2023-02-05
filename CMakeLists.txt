@@ -24,11 +24,20 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(spdlog)
 
+FetchContent_Declare(
+    indicators
+    GIT_REPOSITORY https://github.com/p-ranav/indicators.git
+    GIT_TAG        v2.2
+)
+FetchContent_MakeAvailable(indicators)
+
 # Optimization
 if(MSVC)
-    set(CMAKE_CXX_FLAGS "/O2")
+    set(CMAKE_CXX_FLAGS "/O2 /EHs")
 else()
     set(CMAKE_CXX_FLAGS "-O3")
 endif()
+
+set (CMAKE_CXX_STANDARD 20)
 add_executable(${CMAKE_PROJECT_NAME} main.cpp)
-target_link_libraries(${CMAKE_PROJECT_NAME} argparse CRCpp spdlog)
+target_link_libraries(${CMAKE_PROJECT_NAME} argparse CRCpp spdlog indicators)

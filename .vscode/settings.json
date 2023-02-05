@@ -81,6 +81,7 @@
         "random": "cpp",
         "stack": "cpp",
         "xlocbuf": "cpp",
-        "xlocmes": "cpp"
+        "xlocmes": "cpp",
+        "codecvt": "cpp"
     }
 }
