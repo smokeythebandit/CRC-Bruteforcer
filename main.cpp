@@ -8,6 +8,7 @@
 
 // External libraries
 #include <CRC.h>
+#include <fmt/core.h>
 #include <spdlog/spdlog.h>
 #include <argparse/argparse.hpp>
 #include <indicators/progress_bar.hpp>
@@ -21,7 +22,7 @@ uint64_t last_log_amount = 0;
 std::chrono::steady_clock::time_point last_log_time;
 std::chrono::steady_clock::time_point program_start;
 indicators::ProgressBar bar{
-    indicators::option::BarWidth{60},
+    indicators::option::BarWidth{29},
     indicators::option::Start{"["},
     indicators::option::Fill{"="},
     indicators::option::Lead{">"},
@@ -61,7 +62,7 @@ void run_crc(const WorkerInstruction &instructions) {
                         last_log_time = std::chrono::steady_clock::now();
 
                         bar.set_progress(((float)instructions.worker_info.processed_entries / (float)instructions.worker_info.total_attempts) * 100.0);
-                        bar.set_option(indicators::option::PostfixText{std::to_string(hashes_per_ms * 1000) + " CRCs per Second"});
+                        bar.set_option(indicators::option::PostfixText{fmt::format("{} CRCs per Second", std::to_string(hashes_per_ms * 1000))});
                     }
                 }
             }
@@ -133,8 +134,8 @@ int main(int argc, char const *argv[])
     }
     auto dash_fold = [](std::string a, uint32_t b)
     {
-        if(a.length() == 0) return std::format("0x{:08x}",b);
-        return a + ", " + std::format("0x{:08x}",b);
+        if(a.length() == 0) return fmt::format("0x{:08x}",b);
+        return a + ", " + fmt::format("0x{:08x}",b);
     };
  
     // Print info

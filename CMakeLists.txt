@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.0)
 project(CRC-Bruteforcer)
 
-# Fetch argparse
+# Fetch Depdenencies
 include(FetchContent)
 FetchContent_Declare(
     argparse
@@ -9,6 +9,14 @@ FetchContent_Declare(
     GIT_TAG        v2.9
 )
 FetchContent_MakeAvailable(argparse)
+
+include(FetchContent)
+FetchContent_Declare(
+    fmt
+    GIT_REPOSITORY https://github.com/fmtlib/fmt.git
+    GIT_TAG        9.1.0
+)
+FetchContent_MakeAvailable(fmt)
 
 FetchContent_Declare(
     CRCpp
@@ -38,6 +46,6 @@ else()
     set(CMAKE_CXX_FLAGS "-O3")
 endif()
 
-set (CMAKE_CXX_STANDARD 20)
+set (CMAKE_CXX_STANDARD 17)
 add_executable(${CMAKE_PROJECT_NAME} main.cpp)
-target_link_libraries(${CMAKE_PROJECT_NAME} argparse CRCpp spdlog indicators)
+target_link_libraries(${CMAKE_PROJECT_NAME} argparse CRCpp spdlog indicators fmt)
