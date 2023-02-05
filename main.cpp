@@ -4,7 +4,6 @@
 #include <sstream>
 #include <iomanip>
 #include <iostream>
-#include <format>
 #include <fstream>
 
 // External libraries
@@ -62,7 +61,7 @@ void run_crc(const WorkerInstruction &instructions) {
                         last_log_time = std::chrono::steady_clock::now();
 
                         bar.set_progress(((float)instructions.worker_info.processed_entries / (float)instructions.worker_info.total_attempts) * 100.0);
-                        bar.set_option(indicators::option::PostfixText{std::format("{} CRCs per Second", std::to_string(hashes_per_ms * 1000))});
+                        bar.set_option(indicators::option::PostfixText{std::to_string(hashes_per_ms * 1000) + " CRCs per Second"});
                     }
                 }
             }
