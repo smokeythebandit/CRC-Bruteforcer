@@ -33,21 +33,24 @@ indicators::ProgressBar bar{
 };
 
 void run_crc(const WorkerInstruction &instructions) {
+    // Get data and size
+    auto data = instructions.data.data();
+    auto data_size = instructions.data.size();
     // Calculate progress numbers
     uint64_t current_amount_attempts = 0;
     uint64_t worker_share_attempts = instructions.worker_info.total_attempts / instructions.worker_info.worker_count;
-    float worker_share_percentage = 100.0 / (float)global_worker_info.worker_count;
-    uint64_t attempts_per_percent = worker_share_attempts / 100.0;
+    uint64_t attempts_per_percent = worker_share_attempts / 1000.0;
 
     spdlog::debug("Worker {0} has started, starting polynomal 0x{1:x}, ending polynomal 0x{2:x}", instructions.worked_index, instructions.worker_start, instructions.worker_end);
     // Start processing
-    for(uint32_t xor_value: instructions.xor_values) {
-        for(uint32_t initial_value: instructions.initial_values) {
-            for(uint32_t current_polynomal = instructions.worker_start; current_polynomal <= instructions.worker_end; current_polynomal++) {
-                auto calculated_crc = CRC::Calculate(instructions.data.data(), sizeof(instructions.data.size()), CRC::Parameters<crcpp_uint32, 32>({current_polynomal, initial_value, xor_value, true, true}));
+    for(auto xor_value: instructions.xor_values) {
+        for(auto initial_value: instructions.initial_values) {
+            for(auto current_polynomal = instructions.worker_start; current_polynomal <= instructions.worker_end; current_polynomal++) {
+                auto calculated_crc = CRC::Calculate(data, data_size, CRC::Parameters<crcpp_uint32, 32>({current_polynomal, initial_value, xor_value, true, true}));
                 current_amount_attempts++;
                 if(calculated_crc == instructions.match_value) {
                     spdlog::info("Found match, polynomal: 0x{0:x}, Checksum: 0x{1:x}", current_polynomal, calculated_crc);
+                    exit(0);
                 }
                 if((current_amount_attempts) % attempts_per_percent == 0) {
                     // Increments attempt amounts
@@ -162,7 +165,7 @@ int main(int argc, char const *argv[])
     for(auto thread: threadPool) {
         thread->join();
     }
-
+    std::cout << "\33[2K\r" << std::flush;
     spdlog::info("Finished execution, took: {} seconds", std::chrono::duration_cast<std::chrono::seconds>(std::chrono::steady_clock::now() - program_start).count());
 
 

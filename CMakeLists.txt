@@ -45,6 +45,7 @@ if(MSVC)
 else()
     set(CMAKE_CXX_FLAGS "-O3")
 endif()
+add_compile_definitions(CRCPP_USE_CPP11)
 
 set (CMAKE_CXX_STANDARD 17)
 add_executable(${CMAKE_PROJECT_NAME} main.cpp)

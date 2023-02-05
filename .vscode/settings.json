@@ -82,6 +82,9 @@
         "stack": "cpp",
         "xlocbuf": "cpp",
         "xlocmes": "cpp",
-        "codecvt": "cpp"
+        "codecvt": "cpp",
+        "complex": "cpp",
+        "filesystem": "cpp",
+        "typeindex": "cpp"
     }
 }
